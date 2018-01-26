@@ -35,7 +35,7 @@ class Agent(object):
 		self.cost += 1
 		i,j = self.current_loc
 
-		if self.maze[i][j] = '.':
+		if self.maze[i][j] == '.':
 			self.collected_rewards += 1
 
 
