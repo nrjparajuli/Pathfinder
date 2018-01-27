@@ -31,32 +31,56 @@ def initializeAgent(input_file):
         maze.append(line_maze)
         row += 1
 
+    print(total_rewards)
     agent = Agent(start_loc, total_rewards, maze)
 
     return agent
 
 def single_bfs(agent):
-    queue = []
-    path = [agent.getCurrentLoc()]
-    visited = [agent.getCurrentLoc()]
+    start_loc = agent.getCurrentLoc()
+    queue = [start_loc]
+    pred_of = {}
+    pred_of[start_loc] = None
+    visited = []
 
-    for i in agent.getNeighbors():
-        queue.append(i)
+    # for i in agent.getNeighbors():
+    #     queue.append(i)
 
     while queue != []:
+
         next_loc = queue.pop(0)
-        agent.move(next_loc)
-        visited.append(next_loc)
+
 
         if agent.goalTest():
-            print("SUCCESS")
-            break
+            return construct_path(start_loc, pred_of, agent)
 
         for i in agent.getNeighbors():
-            if i not in visited:
+            if i not in visited and i not in queue:
                 queue.append(i)
-                path.index([i]).append()
+                pred_of[i] = agent.getCurrentLoc()
 
+        agent.move(queue[0])
+        visited.append(next_loc)
+
+def construct_path(start, pred, agent):
+    current = agent.getCurrentLoc()
+    path = []
+
+    while current != start:
+        path.append(current)
+        current = pred[current]
+
+    path.append(start)
+    return display_path(agent, path)
+
+def display_path(agent, path):
+    maze = agent.getMaze()
+    
+    for i,j in path:
+        maze[i][j] = '#'
+
+    for i in maze:
+        print(''.join(i))
 
 
 def single_dfs(agent):

@@ -11,6 +11,9 @@ class Agent(object):
 	def getCurrentLoc(self):
 		return self.current_loc
 
+	def getMaze(self):
+		return self.maze
+
 	def getNeighbors(self):
 		height = len(self.maze)
 		width = len(self.maze[0])
