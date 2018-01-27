@@ -5,11 +5,11 @@ class Agent(object):
 		self.collected_rewards = 0
 		self.total_rewards = total_rewards
 		self.maze = maze
-		self.cost = 0
+		# self.cost = 0
 
 
 	def getCurrentLoc(self):
-		return current_loc
+		return self.current_loc
 
 	def getNeighbors(self):
 		height = len(self.maze)
@@ -19,11 +19,11 @@ class Agent(object):
 
 		if self.maze[i+1][j] != '%':
 			neighbors.append((i+1,j))
-		elif self.maze[i-1][j] != '%':
+		if self.maze[i-1][j] != '%':
 			neighbors.append((i-1, j))
-		elif self.maze[i][j+1] != '%':
+		if self.maze[i][j+1] != '%':
 			neighbors.append((i, j+1))
-		elif self.maze[i][j-1] != '%':
+		if self.maze[i][j-1] != '%':
 			neighbors.append((i, j-1))
 
 		return neighbors
@@ -32,7 +32,7 @@ class Agent(object):
 #Track path in driver
 	def move(self, next_loc):
 		self.current_loc = next_loc
-		self.cost += 1
+		# self.cost += 1
 		i,j = self.current_loc
 
 		if self.maze[i][j] == '.':
